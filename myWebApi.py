@@ -17,6 +17,7 @@ def postJsonHandler():
     print (request.is_json)
     content = request.get_json()
     print (content)
+    content = jsonify(content)
     return content
 
 
