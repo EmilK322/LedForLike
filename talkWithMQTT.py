@@ -1,5 +1,5 @@
 import paho.mqtt.client as mqtt
-import os, urlparse
+import os#, urlparse
 
 # Define event callbacks
 def on_connect(client, userdata, flags, rc):
@@ -34,7 +34,7 @@ url_str = os.environ.get('CLOUDMQTT_URL', 'mqtt://localhost:1883')
 
 # Connect
 mqttc.username_pw_set('oksyyxcw', 'nv5t8VokNjP3')
-mqttc.connect('m13.cloudmqtt.com', '15829')
+mqttc.connect('m13.cloudmqtt.com', 15829)
 
 # Start subscribe, with QoS level 0
 #mqttc.subscribe(topic, 0)
