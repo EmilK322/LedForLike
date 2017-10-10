@@ -23,7 +23,8 @@ def postJsonHandler():
 
 @app.route('/')
 def api_root():
-    return 'to get your request in JSON, enter "/echo?param=value" '
+    #return 'to get your request in JSON, enter "/echo?param=value" '
+    return 'welcome'
 
 WEB_PORT = int(os.environ.get('PORT' , 5000))
 
