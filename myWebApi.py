@@ -1,4 +1,5 @@
 from flask import Flask , request , json , jsonify
+import os
 app = Flask(__name__)
 
 
@@ -24,6 +25,7 @@ def postJsonHandler():
 def api_root():
     return 'to get your request in JSON, enter "/echo?param=value" '
 
+WEB_PORT = int(os.environ.get('PORT' , 5000))
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0' , port=WEB_PORT)
