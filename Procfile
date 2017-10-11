@@ -1,1 +1,1 @@
-web: python myWebApi.py
+web: python main.py
