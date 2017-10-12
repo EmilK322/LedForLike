@@ -18,7 +18,7 @@ class MqttWork:
         if rc in MqttWork.rc_values.keys():
             print("Connected to broker with result code " + str(rc) + ': ' + MqttWork.rc_values[rc])
         else:
-            print("Connected to broker with result code " + str(rc) + MqttWork.rc_values['else'])
+            print("Connected to broker with result code " + str(rc) + ': ' + MqttWork.rc_values['else'])
 
     # prints the publishing state
     # if this method runs, it means that the
@@ -28,6 +28,9 @@ class MqttWork:
         # it means that message arrived to broker
         if mid == 1:
             print("published message id: " + str(mid) + ' ---> ' + 'published message successfully arrived to broker')
+        else:
+            print("published message id: " + str(mid) + ' ---> ' + "published message don't arrived to broker")
+
 
     # called when instantiated
     def __init__(self):
