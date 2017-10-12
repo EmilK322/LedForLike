@@ -1,0 +1,16 @@
+2017-10-12T08:22:43.513597+00:00 heroku[web.1]: Process exited with status 143
+2017-10-12T08:45:14.832786+00:00 heroku[web.1]: State changed from down to starting
+2017-10-12T08:45:18.321386+00:00 heroku[web.1]: Starting process with command `python __main__.py`
+2017-10-12T08:45:22.008221+00:00 heroku[web.1]: State changed from starting to up
+2017-10-12T08:45:21.943825+00:00 app[web.1]:  * Running on http://0.0.0.0:25588/ (Press CTRL+C to quit)
+2017-10-12T08:46:09.178692+00:00 app[web.1]: 10.179.204.228 - - [12/Oct/2017 08:46:09] "GET / HTTP/1.1" 200 -
+2017-10-12T08:48:56.879442+00:00 app[web.1]: content:
+2017-10-12T08:48:56.879461+00:00 app[web.1]:  {'entry': [{'changes': [{'field': 'feed', 'value': {'item': 'like', 'verb': 'add', 'sender_id': '141396729936203'}}], 'id': '433118240418904', 'time': 1507798133}], 'object': 'page'}
+2017-10-12T08:48:56.879533+00:00 app[web.1]: message:
+2017-10-12T08:48:56.879536+00:00 app[web.1]:  {"time": 1507798133, "type": "LIKE", "sender_id": "141396729936203"}
+2017-10-12T08:48:56.879860+00:00 app[web.1]: set event callbacks
+2017-10-12T08:48:56.879909+00:00 app[web.1]: run connect
+2017-10-12T08:48:56.938619+00:00 app[web.1]: run publish
+2017-10-12T08:48:56.940155+00:00 app[web.1]: Connected to broker with result code 0: Connection successful
+2017-10-12T08:48:56.940780+00:00 app[web.1]: published message id: 1 ---> published message successfully arrived to broker
+2017-10-12T08:48:56.942485+00:00 app[web.1]: 10.65.88.66 - - [12/Oct/2017 08:48:56] "POST /webhook HTTP/1.1" 200 -
