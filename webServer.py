@@ -1,6 +1,7 @@
 from flask import Flask, request
 from talkWithMQTT import MqttWork
 import json
+import time
 import settings as config
 
 class WebServer:
@@ -22,11 +23,16 @@ class WebServer:
 
             # if the changes was the like
             if content['entry'][0]['changes'][0]['value']['item'] == 'like':
-                # get the required parameters from the request
-                message = {'time': int(content['entry'][0]['time']),
+                # get the time from the request
+                #converting epoch time to datetime
+                epoch_time = int(content['entry'][0]['time'])
+                human_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(epoch_time))
+                # also get the sender id
+                message = {'time': human_time,
                            'type': 'LIKE',
                            'sender_id': content['entry'][0]['changes'][0]['value']['sender_id']
                            }
+
                 # print the message that will be send to broker
                 print('message:\n', json.dumps(message))
 
@@ -35,6 +41,7 @@ class WebServer:
                     mqtt.publish(topic=config.MQTT_FB_WEBHOOK_TOPIC_NAME, message=(json.dumps(message)))
 
         resp = ('got from request\n %s') % content + ('\n\nsend to broker:\n%s' % message)
+        print(resp)
         return resp
 
     @app.route('/')
