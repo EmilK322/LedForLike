@@ -5,16 +5,13 @@ import settings as config
 class WebServer:
     app = Flask(__name__)
 
-    @app.route('/echo', methods=['GET', 'POST'])
-    def api_echo():
-        # get the key and value of the request
-        data = {k: v for k, v in request.args.items()}
-        # turn the data to json
-        resp = jsonify(data)
-        return resp
+    @app.route("/webhook", methods=['GET'])
+    def verify():
+        """webhook api"""
+        return request.args.get('hub.challenge')
 
     # get json from request and send it to broker
-    @app.route('/postjson', methods=['POST'])
+    @app.route('/webhook', methods=['POST'])
     def post_json():
         if request.is_json:
             content = request.get_json()
