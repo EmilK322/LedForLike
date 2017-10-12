@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from talkWithMQTT import MqttWork
+import settings as config
 
 class WebServer:
     app = Flask(__name__)
@@ -21,7 +22,7 @@ class WebServer:
 
         # send message to mqtt broker
         with MqttWork() as mqtt:
-            mqtt.publish(topic='someTopic', message=(str(content)))
+            mqtt.publish(topic=config.MQTT_FB_WEBHOOK_TOPIC_NAME, message=(str(content)))
 
         resp = 'got from request and send to broker:\n%s' % content
         return resp
