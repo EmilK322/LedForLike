@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-
+from talkWithMQTT import MqttWork
 
 class WebServer:
     app = Flask(__name__)
@@ -12,15 +12,20 @@ class WebServer:
         resp = jsonify(data)
         return resp
 
+    # get json from request and send it to broker
     @app.route('/postjson', methods=['POST'])
     def post_json():
-        print(request.is_json)
-        content = request.get_json()
+        if request.is_json:
+            content = request.get_json()
         print(content)
-        content = jsonify(content)
-        return content
+
+        # send message to mqtt broker
+        with MqttWork() as mqtt:
+            mqtt.publish(topic='someTopic', message=(str(content)))
+
+        resp = 'got from request and send to broker:\n%s' % content
+        return resp
 
     @app.route('/')
     def api_root():
-        # return 'to get your request in JSON, enter "/echo?param=value" '
         return 'welcome'
