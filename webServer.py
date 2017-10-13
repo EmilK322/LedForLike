@@ -8,7 +8,7 @@ import urllib.request
 class WebServer:
     app = Flask(__name__)
 
-    def get_FBname_by_Id(self , FBid: int):
+    def get_FBname_by_Id(FBid: int):
         # check if we got the token from environment vars
         # if not, the token will be: ''
         if len(config.FB_ACCESS_TOKEN) > 0:
