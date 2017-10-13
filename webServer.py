@@ -3,7 +3,7 @@ from talkWithMQTT import MqttWork
 import json
 import time
 import settings as config
-from urllib import request
+import urllib.request
 
 class WebServer:
     app = Flask(__name__)
@@ -13,7 +13,7 @@ class WebServer:
         # if not, the token will be: ''
         if len(config.FB_ACCESS_TOKEN) > 0:
             # open the graph api url with requested id
-            graph_resp = request.urlopen(config.FB_GRAPH_API_URL + str(FBid) +
+            graph_resp = urllib.request.urlopen(config.FB_GRAPH_API_URL + str(FBid) +
                                          '?access_token=' + config.FB_ACCESS_TOKEN)
             # get the data on the page as string
             user_data = graph_resp.read()
