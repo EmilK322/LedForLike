@@ -3,9 +3,36 @@ from talkWithMQTT import MqttWork
 import json
 import time
 import settings as config
+from urllib import request
 
 class WebServer:
     app = Flask(__name__)
+
+    def get_FBname_by_Id(self , FBid: int):
+        # check if we got the token from environment vars
+        # if not, the token will be: ''
+        if len(config.FB_ACCESS_TOKEN) > 0:
+            # open the graph api url with requested id
+            graph_resp = request.urlopen(config.FB_GRAPH_API_URL + str(FBid) +
+                                         '?access_token=' + config.FB_ACCESS_TOKEN)
+            # get the data on the page as string
+            user_data = graph_resp.read()
+            # convert the str data to dictionary
+            user_data = user_data.decode('utf8').replace("'", '"')
+            user_data = json.loads(user_data)
+            # find and return the name
+            if 'name' in user_data.keys():
+                return user_data['name']
+
+            # if can't find name field in the returned data from FB,
+            # This can happen for several reasons:
+            # the access token expired, wrong id or FB's internal problems
+            else:
+                return ''
+        # if can't get the token from env vars
+        else:
+            return ''
+
 
     @app.route("/webhook", methods=['GET'])
     def verify():
@@ -32,6 +59,11 @@ class WebServer:
                            'type': 'LIKE',
                            'sender_id': content['entry'][0]['changes'][0]['value']['sender_id']
                            }
+                # get the user name by id
+                fb_name = WebServer.get_FBname_by_Id(FBid=int(message['sender_id']))
+                # if we successfully got the name
+                if len(fb_name) > 0:
+                    message['sender_name'] = fb_name
 
                 # print the message that will be send to broker
                 print('message:\n', json.dumps(message))
