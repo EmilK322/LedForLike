@@ -41,19 +41,16 @@ class MqttWork:
         self.mqttc.on_publish = MqttWork.on_publish
 
         # set the username and the password
-        #self.mqttc.username_pw_set('oksyyxcw', 'nv5t8VokNjP3')
         self.mqttc.username_pw_set(config.MQTT_USER, config.MQTT_PWD)
         try:
             # trying to connect to broker
             print('run connect')
-            #self.mqttc.connect('m13.cloudmqtt.com', 15829)
             self.mqttc.connect(config.MQTT_HOST, config.MQTT_PORT)
 
             # start threaded network loop, network loops needed to run events callbecks
             self.mqttc.loop_start()
 
         except ValueError:
-            #print("can't connect to " + 'm13.cloudmqtt.com')
             print("can't connect to " + config.MQTT_HOST)
 
     # called when instance is instantiated with 'with' clause
